@@ -1,0 +1,72 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-button slot="start" size="small" fill="clear" (click)="returnHome()">
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      Accueil
+    </ion-button>
+    <ion-title>Salaire</ion-title>
+    <ion-button slot="end" size="small" fill="clear" color="medium" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="page-shell">
+    <section class="total-card">
+      <div>
+        <p class="card-label">Salaires enregistres</p>
+        <div class="total">{{ total() }} EUR</div>
+      </div>
+      <span class="target">{{ salaires().length }} mois</span>
+    </section>
+
+    <section class="form-card">
+      <div class="section-heading">
+        <h2>Ajouter un salaire</h2>
+      </div>
+      <ion-item lines="none">
+        <ion-input label="Nom" labelPlacement="stacked" [(ngModel)]="form.nom"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input label="Montant" labelPlacement="stacked" type="number" [(ngModel)]="form.montant"></ion-input>
+      </ion-item>
+      <div class="calendar-card">
+        <ion-datetime presentation="month-year" [(ngModel)]="form.mois"></ion-datetime>
+      </div>
+      <ion-item lines="none">
+        <ion-textarea label="Notes" labelPlacement="stacked" autoGrow="true" [(ngModel)]="form.notes"></ion-textarea>
+      </ion-item>
+      <ion-button expand="block" color="dark" (click)="addSalaire()">
+        <ion-icon slot="start" name="calendar-outline"></ion-icon>
+        Ajouter
+      </ion-button>
+    </section>
+
+    @if(message()) {
+      <p class="message">{{ message() }}</p>
+    }
+
+    <section class="list-card">
+      @for(salaire of salaires(); track salaire.id) {
+        <div class="list-row">
+          <div>
+            <strong>{{ salaire.nom }}</strong>
+            <small>{{ salaire.mois | date:'MMMM yyyy' }}</small>
+            @if(salaire.notes) {
+              <p>{{ salaire.notes }}</p>
+            }
+          </div>
+          <div class="row-side">
+            <span>{{ salaire.montant }} EUR</span>
+            <ion-button fill="clear" color="danger" size="small" (click)="deleteSalaire(salaire.id)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">Aucun salaire ajoute.</div>
+      }
+    </section>
+  </div>
+</ion-content>

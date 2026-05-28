@@ -1,0 +1,130 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id             String                  @id @default(uuid())
+  email          String                  @unique
+  password       String
+  createdAt      DateTime                @default(now())
+  
+  // Relations: A user owns their budgets and expenses
+  epargnes       Epargne[]
+  depenses       DepenseCategory[]
+  communs        DepenseCommunCategory[]
+  salaires       Salaire[]
+  depensesFixes  DepenseFixe[]
+}
+
+model Salaire {
+  id        String   @id @default(uuid())
+  nom       String
+  montant   Float
+  mois      DateTime
+  notes     String?
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DepenseFixe {
+  id        String   @id @default(uuid())
+  nom       String
+  montant   Float
+  jour      Int
+  notes     String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Epargne {
+  id        String     @id @default(uuid())
+  nom       String
+  montant   Float
+  courant   Float
+  notes     String?
+  couleurs  String?
+  liens     String?
+  economies Economie[]
+  
+  // Link to User
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Economie {
+  id        String   @id @default(uuid())
+  nom       String
+  montant   Float
+  notes     String?
+  liens     String?
+
+  epargneId String
+  epargne   Epargne  @relation(fields: [epargneId], references: [id], onDelete: Cascade)
+}
+
+model DepenseCategory {
+  id       String    @id @default(uuid())
+  nom      String
+  montant  Float
+  courant  Float
+  notes    String?
+  couleurs String?
+  liens    String?
+  depenses Depense[]
+  
+  // Link to User
+  userId   String
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Depense {
+  id         String          @id @default(uuid())
+  nom        String
+  montant    Float
+  notes      String?
+  liens      String?
+  
+  categoryId String
+  category   DepenseCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model DepenseCommunCategory {
+  id       String          @id @default(uuid())
+  nom      String
+  montant  Float
+  courant  Float
+  notes    String?
+  couleurs String?
+  liens    String?
+  depenses DepenseCommun[]
+  
+  // Link to User
+  userId   String
+  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DepenseCommun {
+  id         String                @id @default(uuid())
+  nom        String
+  montant    Float
+  notes      String?
+  liens      String?
+  
+  categoryId String
+  category   DepenseCommunCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,72 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-button slot="start" size="small" fill="clear" (click)="returnHome()">
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      Accueil
+    </ion-button>
+    <ion-title>Fixes</ion-title>
+    <ion-button slot="end" size="small" fill="clear" color="medium" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="page-shell">
+    <section class="total-card">
+      <div>
+        <p class="card-label">Depenses fixes mensuelles</p>
+        <div class="total">{{ total() }} EUR</div>
+      </div>
+      <span class="target">{{ depenses().length }} charge(s)</span>
+    </section>
+
+    <section class="form-card">
+      <div class="section-heading">
+        <h2>Ajouter une charge fixe</h2>
+      </div>
+      <ion-item lines="none">
+        <ion-input label="Nom" labelPlacement="stacked" [(ngModel)]="form.nom"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input label="Montant" labelPlacement="stacked" type="number" [(ngModel)]="form.montant"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input label="Jour du mois" labelPlacement="stacked" type="number" min="1" max="31" [(ngModel)]="form.jour"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-textarea label="Notes" labelPlacement="stacked" autoGrow="true" [(ngModel)]="form.notes"></ion-textarea>
+      </ion-item>
+      <ion-button expand="block" color="dark" (click)="addDepenseFixe()">
+        <ion-icon slot="start" name="repeat-outline"></ion-icon>
+        Ajouter
+      </ion-button>
+    </section>
+
+    @if(message()) {
+      <p class="message">{{ message() }}</p>
+    }
+
+    <section class="list-card">
+      @for(depense of depenses(); track depense.id) {
+        <div class="list-row">
+          <div>
+            <strong>{{ depense.nom }}</strong>
+            <small>Chaque mois le {{ depense.jour }}</small>
+            @if(depense.notes) {
+              <p>{{ depense.notes }}</p>
+            }
+          </div>
+          <div class="row-side">
+            <span>{{ depense.montant }} EUR</span>
+            <ion-button fill="clear" color="danger" size="small" (click)="deleteDepenseFixe(depense.id)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      } @empty {
+        <div class="empty-state">Aucune depense fixe ajoutee.</div>
+      }
+    </section>
+  </div>
+</ion-content>

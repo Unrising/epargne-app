@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Annuler</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirmer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="modal-titre">
+    Categorie Depense
+  </div>
+  <ion-card mode="ios">
+    <ion-card-content>
+      @for(depense of depenses; track depense.id) {
+          <div class="economie">
+            <div class="infos">
+              <div class="titre">
+                {{ depense.nom }} <p class="couleurs" [style.background]="depense.couleurs ? depense.couleurs : '#000'"></p>
+              </div>
+              <div class="montant">
+                {{ depense.montant }} €
+              </div>
+            </div>
+            <ion-button
+              size="small"
+              color="danger"
+              fill="outline"
+              (click)="deleteCategorie(depense.id)"
+            >
+              Supprimer
+            </ion-button>
+          </div>
+        }
+    </ion-card-content>
+  </ion-card>
+  <ion-card mode="ios">
+    <ion-card-content>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          label="Nom"
+          [(ngModel)]="nouvelleCategorie.nom"
+        />
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          type="number"
+          label="Montant"
+          [(ngModel)]="nouvelleCategorie.montant"
+        />
+        €
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-textarea
+          mode="ios"
+          fill="outline"
+          label="Notes"
+          [(ngModel)]="nouvelleCategorie.notes"
+        />
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          type="color"
+          label="Couleur"
+          [(ngModel)]="nouvelleCategorie.couleurs"
+        />
+      </ion-item>
+      <ion-button size="small" expand="block" (click)="addCategorie()">
+        Ajouter
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

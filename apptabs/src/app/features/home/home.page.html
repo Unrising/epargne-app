@@ -1,0 +1,60 @@
+<ion-header class="home-header" [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Budget Rebecca</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-content">
+  <div class="home-shell">
+    <section class="summary-panel">
+      <div>
+        <p class="eyebrow">Tableau de bord</p>
+        <h1>Chaque budget au bon endroit.</h1>
+        <p class="intro">Epargne, depenses personnelles et budget commun restent lisibles, relies et prets a mettre a jour.</p>
+      </div>
+      <div class="status-pill" [class.connected]="authService.isConnected()">
+        <span></span>
+        {{ authService.isConnected() ? 'Connecte' : 'Hors ligne' }}
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      @if(authService.isConnected()) {
+        <div>
+          <p class="panel-label">Session active</p>
+          <h2>{{ authService.userEmail() }}</h2>
+        </div>
+        <ion-button fill="outline" color="dark" (click)="logout()">
+          <ion-icon slot="start" name="log-out-outline"></ion-icon>
+          Deconnexion
+        </ion-button>
+      } @else {
+        <div>
+          <p class="panel-label">Session</p>
+          <h2>Connecte-toi pour charger tes donnees</h2>
+        </div>
+        <div class="auth-actions">
+          <ion-button color="dark" (click)="goTo('login')">Connexion</ion-button>
+          <ion-button fill="outline" color="dark" (click)="goTo('register')">Inscription</ion-button>
+        </div>
+      }
+      @if(authMessage) {
+        <p class="auth-message">{{ authMessage }}</p>
+      }
+    </section>
+
+    <section class="section-grid">
+      @for(section of sections; track section.route) {
+        <button class="section-card" [class]="section.tone" (click)="goTo(section.route)">
+          <span class="section-icon">
+            <ion-icon [name]="section.icon"></ion-icon>
+          </span>
+          <span>
+            <strong>{{ section.title }}</strong>
+            <small>{{ section.subtitle }}</small>
+          </span>
+        </button>
+      }
+    </section>
+  </div>
+</ion-content>

@@ -1,0 +1,103 @@
+:host {
+  --accent: #0f766e;
+}
+
+ion-content {
+  --background: var(--app-bg);
+}
+
+.page-shell {
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+  max-width: 620px;
+  padding: 14px 14px calc(24px + var(--ion-safe-area-bottom));
+}
+
+.total-card,
+.form-card,
+.list-card {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.card-label,
+.message {
+  color: var(--app-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.card-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.total {
+  color: var(--app-text);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  margin-top: 8px;
+}
+
+.target {
+  background: color-mix(in srgb, var(--accent) 12%, white);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 12px;
+  width: fit-content;
+}
+
+.section-heading h2 {
+  color: var(--app-text);
+  font-size: 17px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.list-row {
+  align-items: flex-start;
+  background: var(--app-surface-muted);
+  border-radius: 16px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 12px;
+}
+
+.list-row strong,
+.list-row small,
+.list-row p {
+  display: block;
+  margin: 0;
+}
+
+.list-row strong,
+.row-side span {
+  color: var(--app-text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.list-row small,
+.list-row p,
+.empty-state {
+  color: var(--app-muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.row-side {
+  align-items: flex-end;
+  display: grid;
+  justify-items: end;
+}

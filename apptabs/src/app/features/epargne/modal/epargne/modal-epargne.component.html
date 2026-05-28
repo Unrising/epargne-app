@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Annuler</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirmer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="modal-titre">
+    Epargne
+  </div>
+
+  <ion-card mode="ios">
+    <ion-item mode="ios">
+      <ion-select
+        [(ngModel)]="selectedEpargne"
+        (ionChange)="onSelectedEpargne()"
+        interface="action-sheet"
+      >
+
+        @for (epargne of epargnes; track epargne.id) {
+          <ion-select-option [value]="epargne.id">
+            {{ epargne.nom }}
+          </ion-select-option>
+        }
+
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <ion-card mode="ios">
+    <ion-card-content>
+     @if(currentEpargne; as epargne) {
+      <div class="epargne">
+        @for(economie of epargne.economie; track economie.id) {
+          <div class="economie">
+            <div class="infos">
+              <div class="titre">
+                {{ economie.nom }}
+              </div>
+              <div class="montant">
+                {{ economie.montant }} €
+              </div>
+              @if(economie.notes) {
+                <div class="notes">
+                  {{ economie.notes }}
+                </div>
+              }
+            </div>
+            <ion-button
+              size="small"
+              color="danger"
+              fill="outline"
+              (click)="deleteEconomie(economie.id)"
+            >
+              Supprimer
+            </ion-button>
+          </div>
+        }
+      </div>
+    }
+    </ion-card-content>
+  </ion-card>
+  <ion-card mode="ios">
+    <ion-card-content>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          label="Nom"
+          [(ngModel)]="nouvelleEconomie.nom"
+        />
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          type="number"
+          label="Montant"
+          [(ngModel)]="nouvelleEconomie.montant"
+        />
+        €
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-textarea
+          mode="ios"
+          fill="outline"
+          label="Notes"
+          [(ngModel)]="nouvelleEconomie.notes"
+        />
+      </ion-item>
+      <ion-button size="small" expand="block" (click)="addEconomie()">
+        Ajouter
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

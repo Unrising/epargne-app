@@ -1,0 +1,13 @@
+<div class="progress-card">
+  <div class="progress-header">
+    <p class="progress-title">{{titre()}}</p>
+    <p class="progress-amount">{{courant()}} EUR</p>
+  </div>
+  <div class="progress-meta">
+    <span>Objectif {{total()}} EUR</span>
+    <span>{{calculPourcentage(courant(), total())}}</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress" [style.background]="couleurs()" [style.width]="calculPourcentage(courant(), total())"></div>
+  </div>
+</div>

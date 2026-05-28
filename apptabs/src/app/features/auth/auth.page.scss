@@ -1,0 +1,81 @@
+ion-header ion-toolbar {
+  --background: rgba(244, 245, 247, 0.88);
+  --border-width: 0;
+  --color: var(--app-text);
+}
+
+ion-title {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+ion-content {
+  --background: var(--app-bg);
+}
+
+.auth-shell {
+  display: grid;
+  margin: 0 auto;
+  max-width: 520px;
+  min-height: 100%;
+  padding: 18px 14px calc(22px + var(--ion-safe-area-bottom));
+  place-items: end stretch;
+}
+
+.auth-panel {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+  display: grid;
+  gap: 13px;
+  padding: 20px;
+  width: 100%;
+}
+
+.eyebrow,
+h1,
+.intro,
+.auth-message {
+  margin: 0;
+}
+
+.eyebrow {
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1 {
+  color: var(--app-text);
+  font-size: 27px;
+  line-height: 1.12;
+}
+
+.intro {
+  color: var(--app-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.form-grid {
+  display: grid;
+  gap: 10px;
+}
+
+ion-item {
+  --background: var(--app-surface-muted);
+  --border-radius: 14px;
+  --padding-start: 12px;
+}
+
+ion-button {
+  --border-radius: 14px;
+  margin: 0;
+}
+
+.auth-message {
+  color: #b42318;
+  font-size: 13px;
+}

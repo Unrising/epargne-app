@@ -1,0 +1,68 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-button slot="start" size="small" fill="clear" (click)="returnHome()">
+      Accueil
+    </ion-button>
+    <ion-title>Epargne</ion-title>
+    <ion-button slot="end" size="small" fill="clear" color="medium" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="page-shell">
+    <div class="total-card">
+      <div>
+        <div class="card-label">Total epargne</div>
+        <div class="total">{{epargneTotal()}} EUR</div>
+      </div>
+      <div class="target">Objectif {{epargneObjectif()}} EUR</div>
+    </div>
+
+    <div class="section-heading">
+      <h2>Objectifs</h2>
+      <span>{{ epargnes().length }} categorie(s)</span>
+    </div>
+
+    <div class="liste-epargne">
+      @for(epargne of epargnes(); track epargne.id) {
+        <button class="category-row" type="button" (click)="toggleEpargne(epargne.id)">
+          <app-progress [titre]="epargne.nom" [courant]="epargne.courant" [total]="epargne.montant" [couleurs]="epargne.couleurs || '#2563eb'"></app-progress>
+        </button>
+        @if(openEpargneId() === epargne.id) {
+          <div class="details-list">
+            @for(economie of epargne.economie; track economie.id) {
+              <div class="detail-item">
+                <div>
+                  <strong>{{ economie.nom }}</strong>
+                  @if(economie.notes) {
+                    <p>{{ economie.notes }}</p>
+                  }
+                </div>
+                <span>{{ economie.montant }} EUR</span>
+              </div>
+            } @empty {
+              <div class="detail-empty">Aucune economie ajoutee.</div>
+            }
+          </div>
+        }
+      } @empty {
+        <div class="empty-state">Aucun objectif pour le moment.</div>
+      }
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="buttons">
+    <ion-button expand="block" (click)="openModalEpargneAsync()" size="large" color="dark">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Economie
+    </ion-button>
+    <ion-button expand="block" (click)="openModalCategorieAsync()" size="large" color="dark" fill="outline">
+      <ion-icon slot="start" name="heart"></ion-icon>
+      Categorie
+    </ion-button>
+  </div>
+</ion-footer>

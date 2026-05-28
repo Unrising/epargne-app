@@ -1,0 +1,7 @@
+{
+  "name": "apptabs",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

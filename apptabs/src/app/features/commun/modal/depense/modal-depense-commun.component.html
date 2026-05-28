@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Annuler</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirmer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div class="modal-titre">
+    Dépense Commun
+  </div>
+
+  <ion-card mode="ios">
+    <ion-item mode="ios">
+      <ion-select
+        [(ngModel)]="selectedDepense"
+        (ionChange)="onSelectedDepense()"
+        interface="action-sheet"
+      >
+        @for (depense of depenses; track depense.id) {
+          <ion-select-option [value]="depense.id">
+            {{ depense.nom }}
+          </ion-select-option>
+        }
+
+      </ion-select>
+    </ion-item>
+  </ion-card>
+  <ion-card mode="ios">
+    <ion-card-content>
+     @if(currentDepense; as depense) {
+      <div class="depense">
+        @for(depense of depense.depenses; track depense.id) {
+          <div class="economie">
+            <div class="infos">
+              <div class="titre">
+                {{ depense.nom }}
+              </div>
+              <div class="montant">
+                {{ depense.montant }} €
+              </div>
+              @if(depense.notes) {
+                <div class="notes">
+                  {{ depense.notes }}
+                </div>
+              }
+            </div>
+            <ion-button
+              size="small"
+              color="danger"
+              fill="outline"
+              (click)="deleteDepense(depense.id)"
+            >
+              Supprimer
+            </ion-button>
+          </div>
+        }
+      </div>
+    }
+    </ion-card-content>
+  </ion-card>
+  <ion-card mode="ios">
+    <ion-card-content>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          label="Nom"
+          [(ngModel)]="nouvelleDepense.nom"
+        />
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-input
+          mode="ios"
+          fill="outline"
+          color="primary"
+          type="number"
+          label="Montant"
+          [(ngModel)]="nouvelleDepense.montant"
+        />
+        €
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-textarea
+          mode="ios"
+          fill="outline"
+          label="Notes"
+          [(ngModel)]="nouvelleDepense.notes"
+        />
+      </ion-item>
+      <ion-button size="small" expand="block" (click)="addDepense()">
+        Ajouter
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

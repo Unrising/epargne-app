@@ -1,0 +1,71 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-button slot="start" size="small" fill="clear" (click)="returnHome()">
+      <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+      Accueil
+    </ion-button>
+    <ion-title>Dashboard</ion-title>
+    <ion-button slot="end" size="small" fill="clear" (click)="loadData()">
+      <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" size="small" fill="clear" color="medium" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="dashboard-shell">
+    <section class="hero-panel">
+      <div>
+        <p class="eyebrow">Vue revenus</p>
+        <h1>Dashboard de l'epargne et des budgets</h1>
+        <p class="intro">Suivi rapide des objectifs d'epargne, des depenses du compte courant et du budget commun.</p>
+      </div>
+      @if(isLoading()) {
+        <ion-spinner name="crescent"></ion-spinner>
+      }
+    </section>
+
+    @if(errorMessage()) {
+      <div class="error-state">{{ errorMessage() }}</div>
+    }
+
+    <section class="metrics-grid">
+      @for(card of cards(); track card.title) {
+        <button class="metric-card" [class]="card.tone" (click)="goTo(card.route)">
+          <span class="metric-icon">
+            <ion-icon [name]="card.icon"></ion-icon>
+          </span>
+          <span class="metric-content">
+            <span class="metric-title">{{ card.title }}</span>
+            <strong>{{ card.value }} EUR</strong>
+            <small>{{ card.label }} {{ card.target }} EUR</small>
+            <span class="progress-track">
+              <span class="progress-fill" [style.width.%]="card.progress"></span>
+            </span>
+            <span class="progress-label">{{ card.progress }}%</span>
+          </span>
+        </button>
+      }
+    </section>
+
+    <section class="detail-grid">
+      <div class="detail-panel">
+        <p class="panel-label">Disponible courant</p>
+        <strong>{{ resteCourant() }} EUR</strong>
+        <span>{{ courant().length }} categorie(s)</span>
+      </div>
+      <div class="detail-panel">
+        <p class="panel-label">Disponible commun</p>
+        <strong>{{ resteCommun() }} EUR</strong>
+        <span>{{ commun().length }} categorie(s)</span>
+      </div>
+      <div class="detail-panel">
+        <p class="panel-label">Objectifs epargne</p>
+        <strong>{{ epargnes().length }}</strong>
+        <span>{{ epargneObjectif() - epargneTotal() }} EUR restants</span>
+      </div>
+    </section>
+  </div>
+</ion-content>

@@ -1,0 +1,38 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-title>Connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="auth-shell">
+    <section class="auth-panel">
+      <p class="eyebrow">Budget Rebecca</p>
+      <h1>Bon retour.</h1>
+      <p class="intro">Connecte-toi pour retrouver tes budgets, ton epargne et tes depenses communes.</p>
+
+      <div class="form-grid">
+        <ion-item lines="none">
+          <ion-input label="Email" labelPlacement="stacked" type="email" autocomplete="email" [(ngModel)]="credentials.email"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-input label="Mot de passe" labelPlacement="stacked" type="password" autocomplete="current-password" [(ngModel)]="credentials.password"></ion-input>
+        </ion-item>
+      </div>
+
+      @if(message) {
+        <p class="auth-message">{{ message }}</p>
+      }
+
+      <ion-button expand="block" color="dark" [disabled]="isLoading" (click)="login()">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Se connecter
+      </ion-button>
+
+      <ion-button expand="block" fill="clear" color="dark" routerLink="/register">
+        <ion-icon slot="start" name="person-add-outline"></ion-icon>
+        Creer un compte
+      </ion-button>
+    </section>
+  </div>
+</ion-content>

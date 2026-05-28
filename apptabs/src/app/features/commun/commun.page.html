@@ -1,0 +1,68 @@
+<ion-header [translucent]="true" mode="ios">
+  <ion-toolbar>
+    <ion-button slot="start" size="small" fill="clear" (click)="returnHome()">
+      Accueil
+    </ion-button>
+    <ion-title>Commun</ion-title>
+    <ion-button slot="end" size="small" fill="clear" color="medium" (click)="logout()">
+      <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content mode="ios">
+  <div class="page-shell">
+    <div class="total-card">
+      <div>
+        <div class="card-label">Total commun</div>
+        <div class="total">{{depenseTotal()}} EUR</div>
+      </div>
+      <div class="target">Budget {{depenseObjectif()}} EUR</div>
+    </div>
+
+    <div class="section-heading">
+      <h2>Categories</h2>
+      <span>{{ depenses().length }} categorie(s)</span>
+    </div>
+
+    <div class="liste-epargne">
+      @for(depense of depenses(); track depense.id) {
+        <button class="category-row" type="button" (click)="toggleDepense(depense.id)">
+          <app-progress [titre]="depense.nom" [courant]="depense.courant" [total]="depense.montant" [couleurs]="depense.couleurs || '#7c3aed'"></app-progress>
+        </button>
+        @if(openDepenseId() === depense.id) {
+          <div class="details-list">
+            @for(item of depense.depenses; track item.id) {
+              <div class="detail-item">
+                <div>
+                  <strong>{{ item.nom }}</strong>
+                  @if(item.notes) {
+                    <p>{{ item.notes }}</p>
+                  }
+                </div>
+                <span>{{ item.montant }} EUR</span>
+              </div>
+            } @empty {
+              <div class="detail-empty">Aucune depense commune ajoutee.</div>
+            }
+          </div>
+        }
+      } @empty {
+        <div class="empty-state">Aucune depense commune pour le moment.</div>
+      }
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <div class="buttons">
+    <ion-button expand="block" (click)="openModalDepenseCommunAsync()" size="large" color="dark">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Depense
+    </ion-button>
+    <ion-button expand="block" (click)="openModalCategorieCommunAsync()" size="large" color="dark" fill="outline">
+      <ion-icon slot="start" name="heart"></ion-icon>
+      Categorie
+    </ion-button>
+  </div>
+</ion-footer>

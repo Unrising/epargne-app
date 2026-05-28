@@ -1,0 +1,208 @@
+
+ion-header ion-toolbar {
+  --background: rgba(244, 245, 247, 0.88);
+  --border-width: 0;
+  --color: var(--app-text);
+}
+
+ion-title {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+ion-content {
+  --background: var(--app-bg);
+}
+
+.dashboard-shell {
+  display: grid;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: 620px;
+  padding: 14px 14px calc(24px + var(--ion-safe-area-bottom));
+}
+
+.hero-panel,
+.metric-card,
+.detail-panel,
+.error-state {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+}
+
+.hero-panel {
+  align-items: center;
+  display: grid;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 18px;
+}
+
+.eyebrow,
+.intro,
+.panel-label {
+  margin: 0;
+}
+
+.eyebrow,
+.panel-label {
+  color: var(--app-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+h1 {
+  color: var(--app-text);
+  font-size: 26px;
+  line-height: 1.12;
+  margin: 8px 0 0;
+}
+
+.intro {
+  color: var(--app-muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 10px;
+  max-width: 620px;
+}
+
+.metrics-grid,
+.detail-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.metrics-grid {
+  grid-template-columns: 1fr;
+}
+
+.detail-grid {
+  grid-template-columns: 1fr;
+}
+
+.metric-card {
+  color: var(--app-text);
+  cursor: pointer;
+  display: flex;
+  gap: 14px;
+  min-height: 154px;
+  padding: 16px;
+  text-align: left;
+}
+
+.metric-card:active {
+  transform: scale(0.99);
+}
+
+.metric-icon {
+  align-items: center;
+  background: color-mix(in srgb, var(--accent) 14%, white);
+  border-radius: 14px;
+  color: var(--accent);
+  display: flex;
+  flex: 0 0 46px;
+  font-size: 23px;
+  height: 46px;
+  justify-content: center;
+}
+
+.metric-content,
+.metric-title,
+.metric-content strong,
+.metric-content small,
+.progress-track,
+.progress-label {
+  display: block;
+}
+
+.metric-content {
+  min-width: 0;
+  width: 100%;
+}
+
+.metric-title {
+  color: var(--app-muted);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.metric-content strong {
+  font-size: 28px;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.metric-content small {
+  color: var(--app-muted);
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+.progress-track {
+  background: var(--app-surface-muted);
+  border-radius: 999px;
+  height: 9px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--accent);
+  border-radius: inherit;
+  display: block;
+  height: 100%;
+}
+
+.progress-label {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.detail-panel {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+}
+
+.detail-panel strong {
+  color: var(--app-text);
+  font-size: 25px;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.detail-panel span {
+  color: var(--app-muted);
+  font-size: 13px;
+}
+
+.error-state {
+  border-left: 5px solid #b42318;
+  color: #b42318;
+  padding: 14px 16px;
+}
+
+.blue {
+  --accent: #2563eb;
+}
+
+.pink {
+  --accent: #db2777;
+}
+
+.purple {
+  --accent: #7c3aed;
+}
+
+@media (min-width: 820px) {
+  .metrics-grid,
+  .detail-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
